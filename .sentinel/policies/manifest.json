@@ -1,0 +1,16 @@
+{
+	"records": [
+		{
+			"key": "policy-direct-interconnect-mtu-check",
+			"source": "./policy-direct-interconnect-mtu-check.sentinel",
+			"sourceSum": "",
+			"dest": "F:/8kmiles_Laptop/Desktop/desktops-8kmiles laptop/GitHub/policy-direct-interconnect-name-check/policy-direct-interconnect-mtu-check.sentinel"
+		},
+		{
+			"key": "policy-direct-interconnect-region-check",
+			"source": "./policy-direct-interconnect-region-check.sentinel",
+			"sourceSum": "",
+			"dest": "F:/8kmiles_Laptop/Desktop/desktops-8kmiles laptop/GitHub/policy-direct-interconnect-name-check/policy-direct-interconnect-region-check.sentinel"
+		}
+	]
+}
