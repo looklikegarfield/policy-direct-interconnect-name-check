@@ -4,36 +4,21 @@ import "types"
 
 prefix = "us-"
 
-# Get all Pubsub Topics
-allTopics = plan.find_resources("google_compute_interconnect_attachment")
+# Get all GCE Instances
+allInterconnect = plan.find_resources("google_compute_interconnect_attachment")
+allnetworks = plan.find_resources("google_compute_network")
+allrouters = plan.find_resources("google_compute_router")
 
-# print(allTopics)
 
-voilations = {}
-for allTopics as address, rc {
-	message_storage_policy = rc["change"]["after"]["message_storage_policy"]
-	#print(message_storage_policy)
-	is_undefined = rule { types.type_of(message_storage_policy) is "undefined" }
-	#print(is_undefined)
+# Filter to GCE compute instances with violations
+# Warnings will be printed for all violations since the last parameter is true
+violatingInterconnect = plan.filter_attribute_does_not_have_prefix(allInterconnect,"name", prefix , true)
+violatingNetworks   = plan.filter_attribute_does_not_have_prefix(allnetworks,"name", prefix , true)
+violatingRouters   = plan.filter_attribute_does_not_have_prefix(allrouters,"name", prefix , true)
 
-	if is_undefined is true {
-		#print("hidddd")
-		voilations[address] = rc
-
-	} else {
-
-		allowed_persistence_regions = rc["change"]["after"]["message_storage_policy"][0]["allowed_persistence_regions"]
-
-		for allowed_persistence_regions as region {
-			if not strings.has_prefix(region, prefix) {
-				voilations[address] = rc
-			}
-		}
-	}
-
-}
-
-# print(voilations)
+rule1=rule {length(violatingInterconnect["messages"]) is 0}
+rule2=rule {length(violatingNetworks["messages"]) is 0}
+rule2=rule {length(violatingRouters["messages"]) is 0}
 
 # Main rule
-main = rule { length(voilations) is 0 }
+main = rule { rule1 and rule2 }
