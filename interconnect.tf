@@ -4,10 +4,6 @@ resource "google_compute_interconnect_attachment" "on_prem" {
   type                     = "PARTNER"
   router                   = google_compute_router.foobar.id
   mtu                      = 1500
-  encryption               = "IPSEC"
-  ipsec_internal_addresses = [
-    google_compute_address.address.self_link,
-  ]
 }
 
 #resource "google_compute_router" "foobar" {
