@@ -1,0 +1,39 @@
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+prefix = "us-"
+
+# Get all Pubsub Topics
+allTopics = plan.find_resources("google_compute_interconnect_attachment")
+
+# print(allTopics)
+
+voilations = {}
+for allTopics as address, rc {
+	message_storage_policy = rc["change"]["after"]["message_storage_policy"]
+	#print(message_storage_policy)
+	is_undefined = rule { types.type_of(message_storage_policy) is "undefined" }
+	#print(is_undefined)
+
+	if is_undefined is true {
+		#print("hidddd")
+		voilations[address] = rc
+
+	} else {
+
+		allowed_persistence_regions = rc["change"]["after"]["message_storage_policy"][0]["allowed_persistence_regions"]
+
+		for allowed_persistence_regions as region {
+			if not strings.has_prefix(region, prefix) {
+				voilations[address] = rc
+			}
+		}
+	}
+
+}
+
+# print(voilations)
+
+# Main rule
+main = rule { length(voilations) is 0 }
