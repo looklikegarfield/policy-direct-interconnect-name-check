@@ -18,14 +18,14 @@ resource "google_compute_interconnect_attachment" "on_prem" {
 #  }
 #}
 
-resource "google_compute_address" "address" {
-  name          = "test-address"
-  address_type  = "INTERNAL"
-  purpose       = "IPSEC_INTERCONNECT"
-  address       = "192.168.1.0"
-  prefix_length = 29
-  network       = google_compute_network.foobar.self_link
-}
+#resource "google_compute_address" "address" {
+#  name          = "test-address"
+#  address_type  = "INTERNAL"
+#  purpose       = "IPSEC_INTERCONNECT"
+#  address       = "192.168.1.0"
+#  prefix_length = 29
+#  network       = google_compute_network.foobar.self_link
+#}
 
 resource "google_compute_network" "foobar" {
   name                    = "network"
