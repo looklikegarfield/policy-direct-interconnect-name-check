@@ -1,5 +1,4 @@
 import "tfplan-functions" as plan
-import "tfplan"
 import "tfplan/v2" as tfplan
 
 # Get an array of all resources of the given type (or an empty array).

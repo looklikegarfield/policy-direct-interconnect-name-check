@@ -17,7 +17,7 @@ _modules = {
 							"encryption":               "NONE",
 							"interconnect":             null,
 							"ipsec_internal_addresses": null,
-							"mtu":      "1500",
+							"mtu":      "",
 							"name":     "on-prem-attachment",
 							"region":   "us-west1",
 							"timeouts": null,
@@ -92,7 +92,7 @@ _modules = {
 							},
 							"mtu": {
 								"computed": false,
-								"new":      "1500",
+								"new":      "",
 								"old":      "",
 							},
 							"name": {
@@ -167,7 +167,6 @@ _modules = {
 							"auto_create_subnetworks":         false,
 							"delete_default_routes_on_create": false,
 							"description":                     null,
-							"mtu":                             1500,
 							"name":                            "network",
 							"project":                         "REDACTED_SENSITIVE",
 							"timeouts":                        null,
@@ -201,7 +200,7 @@ _modules = {
 							},
 							"mtu": {
 								"computed": false,
-								"new":      "1500",
+								"new":      "",
 								"old":      "",
 							},
 							"name": {
