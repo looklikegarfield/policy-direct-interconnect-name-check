@@ -1,0 +1,24 @@
+import "tfplan-functions" as plan
+import "strings"
+import "types"
+
+prefix = "us-"
+
+# Get all GCE Instances
+allInterconnect = plan.find_resources("google_compute_interconnect_attachment")
+allnetworks = plan.find_resources("google_compute_network")
+allrouters = plan.find_resources("google_compute_router")
+
+
+# Filter to GCE compute instances with violations
+# Warnings will be printed for all violations since the last parameter is true
+violatingInterconnect = plan.filter_attribute_does_not_have_prefix(allInterconnect,"name", prefix , true)
+violatingNetworks   = plan.filter_attribute_does_not_have_prefix(allnetworks,"name", prefix , true)
+violatingRouters   = plan.filter_attribute_does_not_have_prefix(allrouters,"name", prefix , true)
+
+rule1=rule {length(violatingInterconnect["messages"]) is 0}
+rule2=rule {length(violatingNetworks["messages"]) is 0}
+rule2=rule {length(violatingRouters["messages"]) is 0}
+
+# Main rule
+main = rule { rule1 and rule2 }
