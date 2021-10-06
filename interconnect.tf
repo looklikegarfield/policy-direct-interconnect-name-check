@@ -2,6 +2,7 @@ resource "google_compute_interconnect_attachment" "on_prem" {
   name                     = "on-prem-attachment"
   edge_availability_domain = "AVAILABILITY_DOMAIN_1"
   type                     = "PARTNER"
+  region                   = "us-west1"
   router                   = google_compute_router.foobar.id
   mtu                      = 1500
 }
@@ -26,6 +27,8 @@ resource "google_compute_interconnect_attachment" "on_prem" {
 resource "google_compute_network" "foobar" {
   name                    = "network"
   auto_create_subnetworks = false
+  mtu                     = 1500
+  project                 = var.project_id
 }
 
 resource "google_compute_router" "foobar" {
